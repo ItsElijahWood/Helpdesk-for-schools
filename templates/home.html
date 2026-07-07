@@ -3,9 +3,57 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>School Helpdesk</title>
+        <title>{{ title }}</title>
     </head>
     <body>
-        {{ title }}
+        <div>
+            <h1>Unassigned Tickets</h1>
+            <p id="unassigned-ticket-value"></p>
+        </div>
     </body>
+    <script type="module">
+        await helpdeskInfo();
+
+        setInterval(async () => {
+            await helpdeskInfo();
+        }, 10000);
+
+        async function helpdeskInfo() {
+            const response = await fetch(
+                "http://localhost:3000/api/integrations/fresh-service",
+                {
+                    method: "GET",
+                },
+            );
+
+            if (response.ok) {
+                const data = await response.json();
+
+                for (const d of data) {
+                    if (d.ut) {
+                        document.getElementById(
+                            "unassigned-ticket-value",
+                        ).innerHTML = d.ut.total;
+
+                        if (d.ut.total > 0) {
+                            await unassignedAlarmTrigger();
+                        }
+                    } else {
+                        console.log("no");
+                    }
+                }
+            } else {
+            }
+        }
+
+        async function unassignedAlarmTrigger() {
+            const response = await fetch(`/api/misc/fs/notify`, {
+                method: "GET",
+            });
+
+            if (!response.ok) {
+                console.error("Failed to play fs notify audio.");
+            }
+        }
+    </script>
 </html>

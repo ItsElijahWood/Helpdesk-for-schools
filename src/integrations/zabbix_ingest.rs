@@ -6,16 +6,22 @@ use serde_json::json;
 
 use crate::app::ErrorTypes;
 
-static ZABBIX: LazyLock<(String, String)> = LazyLock::new(|| {
+static ZABBIX: LazyLock<(String, String, String)> = LazyLock::new(|| {
     (
+        std::env::var("ZABBIX_ENABLED").expect("ZABBIX_ENABLED is not set"),
         std::env::var("ZABBIX_TOKEN").expect("ZABBIX_TOKEN is not set"),
         std::env::var("ZABBIX_URL").expect("ZABBIX_URL is not set"),
     )
 });
 
 pub async fn fetch() -> Result<HttpResponse, ErrorTypes> {
-    let token = &ZABBIX.0;
-    let base_url = &ZABBIX.1;
+    // Checks if zabbix module is enabled
+    if &ZABBIX.0 != "true" {
+        return Ok(HttpResponseBuilder::new(StatusCode::OK).finish());
+    }
+
+    let token = &ZABBIX.1;
+    let base_url = &ZABBIX.2;
 
     let zabbix_url = format!("{}/zabbix/api_jsonrpc.php", base_url);
 

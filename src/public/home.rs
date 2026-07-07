@@ -10,7 +10,9 @@ struct HomeTemplate<'a> {
 }
 
 pub async fn home() -> Result<HttpResponse, ErrorTypes> {
-    let t = HomeTemplate { title: "test" };
+    let t = HomeTemplate {
+        title: "School Helpdesk",
+    };
     let html = t.render()?;
 
     Ok(HttpResponse::Ok()

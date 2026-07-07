@@ -5,9 +5,9 @@ use actix_web::{
 };
 use derive_more::Display;
 
-use crate::integrations::fresh_service_ingest;
 use crate::integrations::zabbix_ingest;
 use crate::public::home::home;
+use crate::{integrations::fresh_service_ingest, misc::fs::notify};
 
 #[derive(Debug, Display)]
 pub enum ErrorTypes {
@@ -69,6 +69,8 @@ pub async fn app() -> std::io::Result<()> {
                 "/api/integrations/fresh-service",
                 web::get().to(fresh_service_ingest::fetch),
             )
+            // Misc
+            .route("/api/misc/fs/notify", web::get().to(notify::play))
     })
     .bind(("127.0.0.1", 3000))?
     .run()

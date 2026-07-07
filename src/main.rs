@@ -1,5 +1,6 @@
 mod app;
 pub mod integrations;
+pub mod misc;
 pub mod public;
 
 use dotenvy::dotenv;
