@@ -32,12 +32,12 @@ pub async fn fetch() -> Result<HttpResponse, ErrorTypes> {
     let date: &str = &iso_time;
 
     let filters = vec![
-        /*format!(r#""tov(status:2 OR status:3 OR status:6 OR status:8 OR status:9 OR status:12)""#), // Total open value
+        format!(r#""tov(status:2 OR status:3 OR status:6 OR status:8 OR status:9 OR status:12)""#), // Total open value
         format!(r#""ov(status:2)""#), // Open value
-        format!(r#""toh(status:3 OR status:6 OR status:8 OR status:9 OR status:12)""#), */ // Total on hold
+        format!(r#""toh(status:3 OR status:6 OR status:8 OR status:9 OR status:12)""#), // Total on hold
         format!(r#"ut(agent_id:null)""#), // Unassigned tickets
-                                          /*format!(r#""ot(status:2 AND created_at:>'{date}')""#), // Open today
-                                          format!(r#""dt(status:2 OR status:9) AND due_by:>'{date}'""#),*/ // Due today
+        format!(r#""ot(status:2 AND created_at:>'{date}')""#), // Open today
+        format!(r#""dt(status:2 OR status:9) AND due_by:>'{date}'""#), // Due today
     ];
 
     let client = Client::builder()

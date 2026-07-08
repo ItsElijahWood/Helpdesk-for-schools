@@ -1,3 +1,4 @@
+use actix_files::Files;
 use actix_web::{
     App, HttpResponse, HttpServer, error,
     http::{StatusCode, header::ContentType},
@@ -58,6 +59,7 @@ pub async fn app() -> std::io::Result<()> {
 
     HttpServer::new(|| {
         App::new()
+            .service(Files::new("/assets", "./assets").show_files_listing())
             // Pages
             .route("/", web::get().to(home))
             // Integrations
