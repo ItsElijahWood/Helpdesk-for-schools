@@ -1,6 +1,6 @@
 # Setup for developers
 
-# Linux
+## Linux
 Run project
 ```bash cargo run ```
 

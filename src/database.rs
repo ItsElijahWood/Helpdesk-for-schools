@@ -56,6 +56,22 @@ pub async fn seed_db() {
     }
 
     for i in v {
+        if i.get("filename").unwrap() == "alert" {
+            sqlx::query(
+                "INSERT INTO freshservice (file_name, file_ext, file_length, is_default, is_selected) VALUES (?, ?, ?, ?, ?)"
+            )
+            .bind(i.get("filename"))
+            .bind(i.get("fileext"))
+            .bind(2)
+            .bind(1)
+            .bind(1)
+            .execute(&mut conn)
+            .await
+            .expect("failed to seed the table.");
+
+            continue;
+        }
+
         sqlx::query(
             "INSERT INTO freshservice (file_name, file_ext, file_length, is_default, is_selected) VALUES (?, ?, ?, ?, ?)"
         )

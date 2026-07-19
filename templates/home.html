@@ -3,19 +3,35 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
         <title>{{ title }}</title>
+
         <link rel="icon" href="/assets/favicon.ico" />
+
         <link href="/assets/css/tailwind-output.css" rel="stylesheet">
+        <script src="cdn.jsdelivr.net/npm/chart.js"></script>
     </head>
-    <body>
-        <div>
-            <h1>Unassigned Tickets</h1>
-            <p id="unassigned-ticket-value"></p>
+    <body class="m-0 font-segoe">
+        <header id="header" class="flex justify-between items-center bg-[#f3f2f0] h-20">
+            <div class="flex items-center gap-9 pl-9 w-auto h-auto">
+                <div class="flex items-center cursor-pointer">
+                    <img id="sidebarButton" src="/assets/imgs/sidebar-light.svg" width="20px" height="19px" />
+                </div>
+                <h1 class="m-0 text-xl">IT Dashboard</h1>
+            </div>
+            <div class="flex gap-6 pr-20">
+                <img src="/assets/imgs/theme-light.svg" width="24px" height="24px" />
+                <nav>
+                    <a href="github.com/ItsElijahWood/dashboard-for-schools">
+                        <img src="/assets/imgs/github-light.svg" width="24px" height="24px" />
+                    </a>
+                </nav>
+            </div>
+        </header>
+        <div class="flex">
+            <aside id="sidebar" class="w-23 h-screen bg-[#f3f2f0] overflow-hidden transition-[width] duration-200 ease-in-out">
+            </aside>
         </div>
-        <form id="form">
-          <input name="file" type="file" required>
-          <button type="submit">Send</button>
-        </form>
     </body>
-    <script src="/assets/js/freshservice.js"></script>
+    <script src="/assets/js/sidebar.js"></script>
 </html>

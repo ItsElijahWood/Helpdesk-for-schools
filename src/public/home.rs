@@ -11,7 +11,7 @@ struct HomeTemplate<'a> {
 
 pub async fn home() -> Result<HttpResponse, ErrorTypes> {
     let t = HomeTemplate {
-        title: "School Helpdesk",
+        title: "IT Service Desk Dashboard",
     };
     let html = t.render()?;
 
